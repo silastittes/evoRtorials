@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: beamer_presentation
 ---
 
-```{r, cache=FALSE}
+```{r, cache=FALSE, echo=FALSE, message=FALSE, error=FALSE}
 library(knitr)
 library(formatR)
 opts_chunk$set(comment = "", warning = FALSE, 
