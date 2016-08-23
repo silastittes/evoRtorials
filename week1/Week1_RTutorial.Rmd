@@ -1,0 +1,268 @@
+---
+title: "EBIO 3080 Week 1 `R` Tutorial"
+author: "Silas Tittes"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: beamer_presentation
+---
+
+```{r, cache=FALSE}
+library(knitr)
+library(formatR)
+opts_chunk$set(comment = "", warning = FALSE, 
+               message = FALSE, 
+               echo = TRUE, tidy = FALSE, size="small",
+               tidy.opts=list(width.cutoff=75))
+```
+
+
+## Goals
+>- Basics
+
+> - Navigating your computer like a pro (sort of) -- file paths with getwd(), setwd(), and list.files()
+
+> - Read data from a text file or csv into `R` -- read.csv() or read.table()
+
+> - Working with data frames -- the $ operator
+
+> - Basic math and summary statistics on vectors
+
+> - Plotting data -- plot() and hist()
+
+
+##Basics
+> - Write all commands in a scipt and save with .R extension. Sparingly use the console directly.
+> - To run a command, use the  "Control" + "Enter" keys, line does not need to be highlighted,
+but multiple lines can be highlighted if you want to run multiple lines.
+> - Assignment operator to create a new variable/object "<-" or "=". 
+> - Hotkey for making "<-" is "Alt" + "-" keys.
+> - Use "Control" + "a" to highlight all code, then "Control" + "Enter" to run all code.
+> - Use the "tab" key and `R` will often complete or predict the remaining text. *Very useful*!
+
+ 
+
+## Navigating your computer like a pro
+To be effecient in `R` we need to know where we are and where we want to go within our computer.
+```{r}
+#try using the tab button for 
+#suggestions on how to finish your path
+
+#get working directory
+getwd()
+#set working directory
+setwd("/home/silastittes/Desktop/")
+getwd()
+setwd("~/Documents/TAing/Fall16_Evolution/week1/")
+```
+
+
+## Navigating your computer like a pro
+Make sure your files are where you think they are!
+```{r}
+list.files()
+```
+
+
+##Read data from a text file or csv into R
+> - Use read.csv() to read in a csv file.
+> - Use read.table() to read in a txt file.
+> - Once you know where yourself and the data files you need are, read data into R.
+> - Expect data to almost always be in csv format for this class.
+> - Always save data to an object, with a meaningful name.
+> - Let `R` know the first row of the data set are names for the columns using "header = TRUE"
+```{r}
+lizard <- read.csv("horned_lizards.csv", header = TRUE)
+```
+
+
+##Working with data frames
+Take a quick look at the data with head(), which prints
+the first six rows be default.
+```{r}
+head(lizard)
+```
+
+
+##Working with data frames
+Work with individual columns of the data frame with the $ operator.
+```{r}
+head(lizard$Survival)
+head(lizard$squamosalHornLength)
+```
+
+
+##Working with data frames
+Get rows or columns of the data frame with indexing brackets
+```{r}
+#first row all columns
+lizard[1,]
+
+#second row first column
+lizard[2,1]
+
+#last row second column
+lizard[nrow(lizard),2]
+
+```
+
+
+##Basic math and summary statistics on vectors
+- `R` likes vectors -- 1 x n dimnsional sets of values all of the same type.
+- Use the c() function to construct a new vectors.
+```{r}
+#numeric vector
+n <- c(1, 2, 3)
+n
+is.vector(n) #if a vector, will print TRUE
+
+#character vector
+ch <- c("a", "b", "c")
+ch
+is.vector(ch)
+```
+
+
+##Basic math and summary statistics on vectors
+Math operators are pretty straight forward.
+```{r}
+n + n
+n * n
+n^2
+sqrt(n)
+log(n)
+log(n, base = 2)
+```
+
+
+##Basic math and summary statistics on vectors
+`R` thinks of columns of a data frame as a vector, so rules for vectors usually apply to columns of a data frame.   
+```{r}
+#don't use head!
+head(lizard$squamosalHornLength)
+head(lizard$squamosalHornLength * 2)
+```
+
+
+##Basic math and summary statistics on vectors
+`R` has an immense statistical library
+```{r}
+mean(lizard$squamosalHornLength) #DOH!
+mean(lizard$squamosalHornLength, na.rm = TRUE)
+median(lizard$squamosalHornLength, na.rm = TRUE)
+var(lizard$squamosalHornLength, na.rm = TRUE)
+sd(lizard$squamosalHornLength, na.rm = TRUE)
+summary(lizard$squamosalHornLength, na.rm = TRUE)
+```
+
+##Plotting data
+`R` also has some incredible graphics utilities
+```{r, eval=F}
+boxplot(lizard$squamosalHornLength ~ lizard$Survival, 
+        ylab = "Horn length",
+        col=c("grey40", "purple"),
+        cex.lab=1.4)
+
+legend("topleft", c("Dead", "Alive"), 
+       pch=19, col=c("grey40", "purple"), bty="n")
+```
+
+##Plotting data
+```{r, echo=F}
+boxplot(lizard$squamosalHornLength ~ lizard$Survival, 
+        ylab = "Horn length",
+        col=c("grey40", "purple"),
+        cex.lab=1.4)
+
+legend("topleft", c("Dead", "Alive"), 
+       pch=19, col=c("grey40", "purple"), bty="n")
+```
+
+
+##Plotting data
+`R` also has some incredible graphics utilities
+```{r, eval=FALSE}
+dead <- lizard[lizard$Survival == "killed", ]
+alive <- lizard[lizard$Survival != "killed", ]
+
+rng <- range( c(dead$squamosalHornLength, alive$squamosalHornLength), na.rm=T)
+
+hist(alive$squamosalHornLength,
+     xlab = "Horn Length",
+     cex.lab=1.4, 
+     cex=0.5, main = "", col = "purple")
+
+hist(dead$squamosalHornLength, xlim=rng,
+     xlab = "Horn Length",
+     cex.lab=1.4, 
+     cex=0.5, main = "", col = "grey40", add=T)
+
+
+legend("topleft", c("Dead", "Alive"), 
+       pch=19, col=c("grey40", "purple"), bty="n")
+```
+
+##Plotting data
+```{r, echo=FALSE}
+dead <- lizard[lizard$Survival == "killed", ]
+alive <- lizard[lizard$Survival != "killed", ]
+
+rng <- range( c(dead$squamosalHornLength, alive$squamosalHornLength), na.rm=T)
+
+hist(alive$squamosalHornLength,
+     xlab = "Horn Length",
+     cex.lab=1.4, 
+     cex=0.5, main = "", col = "purple")
+
+hist(dead$squamosalHornLength, xlim=rng,
+     xlab = "Horn Length",
+     cex.lab=1.4, 
+     cex=0.5, main = "", col = "grey40", add=T)
+
+
+legend("topleft", c("Dead", "Alive"), 
+       pch=19, col=c("grey40", "purple"), bty="n")
+```
+
+
+##Plotting data
+`R` also has some incredible graphics utilities
+```{r, eval=FALSE}
+plot(sort(lizard$squamosalHornLength),
+     ylab="Sorted horn length", 
+     pch=19, cex.lab=1.4)
+```
+
+
+##Plotting data
+```{r, echo=FALSE}
+plot(sort(lizard$squamosalHornLength),
+     ylab="Sorted horn length", 
+     pch=19, cex.lab=1.4)
+```
+
+
+##Plotting data
+`R` also has some incredible graphics utilities
+```{r, eval=FALSE}
+surv <- as.numeric(lizard$Survival)-1
+colz <- ifelse(surv == 1, "grey40", "purple")
+plot(lizard$squamosalHornLength, jitter(surv, 0.1),
+     xlab="Sorted horn length", ylab = "Survival",
+     pch=19, col = colz, cex.lab=1.4)
+
+
+legend("topleft", c("Dead", "Alive"), 
+       pch=19, col=c("grey40", "purple"), bty="n")
+```
+
+##Plotting data
+```{r, echo=FALSE}
+surv <- as.numeric(lizard$Survival)-1
+colz <- ifelse(surv == 1, "grey40", "purple")
+plot(lizard$squamosalHornLength, jitter(surv, 0.1),
+     xlab="Sorted horn length", ylab = "Survival",
+     pch=19, col = colz, cex.lab=1.4)
+
+
+legend("topleft", c("Dead", "Alive"), 
+       pch=19, col=c("grey40", "purple"), bty="n")
+```
