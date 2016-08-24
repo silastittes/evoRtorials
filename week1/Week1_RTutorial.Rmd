@@ -21,7 +21,7 @@ opts_chunk$set(comment = "", warning = FALSE,
 >- Find assessment on D2L Curriculum/Weeks 1-5/Week 1/Lab 1 Introduction to   R/R_preassessment_Fall_2016
 >- Upload your script to D2L Assessments tab/Dropbox  
 
->- Crash course on things I think you need to know in R (20 minutes).
+>- Crash course on things I think you need to know in `R` (20 minutes).
 >- Don't panic if doesn't go well for you, you'll have lots of support through 
 the semester, and plenty of opportunities to learn  
 
@@ -70,10 +70,10 @@ list.files()
 ```
 
 
-##Read data from a text file or csv into R
+##Read data from a text file or csv into `R`
 > - Use read.csv() to read in a csv file.
 > - Use read.table() to read in a txt file.
-> - Once you know where yourself and the data files you need are, read data into R.
+> - Once you know where yourself and the data files you need are, read data into `R`.
 > - Expect data to almost always be in csv format for this class.
 > - Always save data to an object, with a meaningful name.
 > - Let `R` know the first row of the data set are names for the columns using "header = TRUE"
@@ -277,7 +277,7 @@ legend("topleft", c("Dead", "Alive"),
 
 
 ##That's it!
-Now complete "Introduction to R" worksheet
+Now complete "Introduction to `R`" worksheet
 
 
 ## 
