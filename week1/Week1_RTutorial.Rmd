@@ -11,21 +11,29 @@ library(formatR)
 opts_chunk$set(comment = "", warning = FALSE, 
                message = FALSE, 
                echo = TRUE, tidy = FALSE, size="small",
-               tidy.opts=list(width.cutoff=75))
+               tidy.opts=list(width.cutoff=80))
 ```
 
 
-## Goals
+##Today
+>- `R` preassessment (30-40 minutes)
+>- MUST turn in something for credit (even if empty file)
+>- Find assessment on D2L Curriculum/Weeks 1-5/Week 1/Lab 1 Introduction to   R/R_preassessment_Fall_2016
+>- Upload your script to D2L Assessments tab/Dropbox  
+
+>- Crash course on things I think you need to know in R (20 minutes).
+>- Don't panic if doesn't go well for you, you'll have lots of support through 
+the semester, and plenty of opportunities to learn  
+
+>- Basic `R` Assignment (remainder of time)
+>- I will grade in class, raise your hand when completed.
+
+## Crash course goals
 >- Basics
-
 > - Navigating your computer like a pro (sort of) -- file paths with getwd(), setwd(), and list.files()
-
 > - Read data from a text file or csv into `R` -- read.csv() or read.table()
-
 > - Working with data frames -- the $ operator
-
 > - Basic math and summary statistics on vectors
-
 > - Plotting data -- plot() and hist()
 
 
@@ -106,7 +114,7 @@ lizard[nrow(lizard),2]
 
 
 ##Basic math and summary statistics on vectors
-- `R` likes vectors -- 1 x n dimnsional sets of values all of the same type.
+- `R` likes vectors -- 1 x n dimensional sets of values all of the same type.
 - Use the c() function to construct a new vectors.
 ```{r}
 #numeric vector
@@ -117,7 +125,6 @@ is.vector(n) #if a vector, will print TRUE
 #character vector
 ch <- c("a", "b", "c")
 ch
-is.vector(ch)
 ```
 
 
@@ -136,7 +143,8 @@ log(n, base = 2)
 ##Basic math and summary statistics on vectors
 `R` thinks of columns of a data frame as a vector, so rules for vectors usually apply to columns of a data frame.   
 ```{r}
-#don't use head!
+#if following, don't write head!
+
 head(lizard$squamosalHornLength)
 head(lizard$squamosalHornLength * 2)
 ```
@@ -153,8 +161,52 @@ sd(lizard$squamosalHornLength, na.rm = TRUE)
 summary(lizard$squamosalHornLength, na.rm = TRUE)
 ```
 
+
 ##Plotting data
-`R` also has some incredible graphics utilities
+>- plot() requires numeric x value(s) and y value(s) -- always pairs, at least one pair.
+>- boxplot() requires (i) a column of numeric values (horn lengths) and (ii) a column of repeated names that categorize the values (dead or alive).
+>- hist() requires a set of numeric values (column or vector).
+
+
+##Plotting data
+```{r}
+plot(1, 1)
+```
+
+##Plotting data
+```{r}
+plot(1, 1, cex=5)
+```
+
+
+##Plotting data
+```{r}
+plot(x = 1, y = 1, cex=5, pch = 19)
+```
+
+
+##Plotting data
+```{r}
+plot(1, 1, pch = 19, cex=5, col="blue")
+```
+
+
+##Plotting data
+```{r, fig.height=6}
+n <- c(1,2,3)
+plot(x = n, y = n, cex=5, pch = 19, col="blue")
+```
+
+
+##Plotting data
+```{r, fig.height=6}
+plot(x = n, y = n, cex=5, pch = 19, col="blue",
+     xlab="Rick", ylab="Morty", main = "Mr. Meeseeks")
+```
+
+
+##Plotting data
+`R` has incredible graphics utilities
 ```{r, eval=F}
 boxplot(lizard$squamosalHornLength ~ lizard$Survival, 
         ylab = "Horn length",
@@ -164,6 +216,7 @@ boxplot(lizard$squamosalHornLength ~ lizard$Survival,
 legend("topleft", c("Dead", "Alive"), 
        pch=19, col=c("grey40", "purple"), bty="n")
 ```
+
 
 ##Plotting data
 ```{r, echo=F}
@@ -180,89 +233,56 @@ legend("topleft", c("Dead", "Alive"),
 ##Plotting data
 `R` also has some incredible graphics utilities
 ```{r, eval=FALSE}
+#separate data by dead or alive
 dead <- lizard[lizard$Survival == "killed", ]
 alive <- lizard[lizard$Survival != "killed", ]
 
-rng <- range( c(dead$squamosalHornLength, alive$squamosalHornLength), na.rm=T)
+rng <- range( c(dead[,1], alive[1,]), na.rm=T)
 
 hist(alive$squamosalHornLength,
      xlab = "Horn Length",
-     cex.lab=1.4, 
-     cex=0.5, main = "", col = "purple")
+     cex.lab=1.4, cex=0.5, main = "", col = "purple")
 
 hist(dead$squamosalHornLength, xlim=rng,
      xlab = "Horn Length",
-     cex.lab=1.4, 
-     cex=0.5, main = "", col = "grey40", add=T)
-
+     cex.lab=1.4, cex=0.5, main = "", col="grey40", add=T)
 
 legend("topleft", c("Dead", "Alive"), 
        pch=19, col=c("grey40", "purple"), bty="n")
+
 ```
+
 
 ##Plotting data
 ```{r, echo=FALSE}
+#separate data by dead or alive
 dead <- lizard[lizard$Survival == "killed", ]
 alive <- lizard[lizard$Survival != "killed", ]
 
-rng <- range( c(dead$squamosalHornLength, alive$squamosalHornLength), na.rm=T)
+rng <- range( c(dead[,1], alive[1,]), na.rm=T)
 
 hist(alive$squamosalHornLength,
      xlab = "Horn Length",
-     cex.lab=1.4, 
-     cex=0.5, main = "", col = "purple")
+     cex.lab=1.4, cex=0.5, main = "", col = "purple")
 
 hist(dead$squamosalHornLength, xlim=rng,
      xlab = "Horn Length",
-     cex.lab=1.4, 
-     cex=0.5, main = "", col = "grey40", add=T)
-
+     cex.lab=1.4, cex=0.5, main = "", col="grey40", add=T)
 
 legend("topleft", c("Dead", "Alive"), 
        pch=19, col=c("grey40", "purple"), bty="n")
+
 ```
 
 
-##Plotting data
-`R` also has some incredible graphics utilities
-```{r, eval=FALSE}
-plot(sort(lizard$squamosalHornLength),
-     ylab="Sorted horn length", 
-     pch=19, cex.lab=1.4)
-```
+
+##That's it!
+Now complete "Introduction to R" worksheet
 
 
-##Plotting data
+## 
+
 ```{r, echo=FALSE}
-plot(sort(lizard$squamosalHornLength),
-     ylab="Sorted horn length", 
-     pch=19, cex.lab=1.4)
+purl("Week1_RTutorial.Rmd")
 ```
 
-
-##Plotting data
-`R` also has some incredible graphics utilities
-```{r, eval=FALSE}
-surv <- as.numeric(lizard$Survival)-1
-colz <- ifelse(surv == 1, "grey40", "purple")
-plot(lizard$squamosalHornLength, jitter(surv, 0.1),
-     xlab="Sorted horn length", ylab = "Survival",
-     pch=19, col = colz, cex.lab=1.4)
-
-
-legend("topleft", c("Dead", "Alive"), 
-       pch=19, col=c("grey40", "purple"), bty="n")
-```
-
-##Plotting data
-```{r, echo=FALSE}
-surv <- as.numeric(lizard$Survival)-1
-colz <- ifelse(surv == 1, "grey40", "purple")
-plot(lizard$squamosalHornLength, jitter(surv, 0.1),
-     xlab="Sorted horn length", ylab = "Survival",
-     pch=19, col = colz, cex.lab=1.4)
-
-
-legend("topleft", c("Dead", "Alive"), 
-       pch=19, col=c("grey40", "purple"), bty="n")
-```
