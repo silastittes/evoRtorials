@@ -64,6 +64,9 @@ log(n, base = 2)
 hornlength_twice <- c(lizard$squamosalHornLength, 
                       lizard$squamosalHornLength)
 
+length(lizard$squamosalHornLength)
+length(hornlength_twice)
+
 ## ------------------------------------------------------------------------
 #if following, don't write head!
 

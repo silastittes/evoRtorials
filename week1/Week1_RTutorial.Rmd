@@ -141,12 +141,16 @@ log(n, base = 2)
 
 
 
-####Basic math and summary statistics on data frames
+##Basic math and summary statistics on data frames
 ```{r}
 #can use this to combine columns of a data frame too!
 hornlength_twice <- c(lizard$squamosalHornLength, 
                       lizard$squamosalHornLength)
+
+length(lizard$squamosalHornLength)
+length(hornlength_twice)
 ```
+
 
 
 ##Basic math and summary statistics on data frames
