@@ -60,6 +60,11 @@ log(n)
 log(n, base = 2)
 
 ## ------------------------------------------------------------------------
+#can use this to combine columns of a data frame too!
+hornlength_twice <- c(lizard$squamosalHornLength, 
+                      lizard$squamosalHornLength)
+
+## ------------------------------------------------------------------------
 #if following, don't write head!
 
 head(lizard$squamosalHornLength)
@@ -113,6 +118,9 @@ legend("topleft", c("Dead", "Alive"),
 
 ## ---- eval=FALSE---------------------------------------------------------
 #separate data by dead or alive
+
+#**don't do this with the height data!**
+
 dead <- lizard[lizard$Survival == "killed", ]
 alive <- lizard[lizard$Survival != "killed", ]
 

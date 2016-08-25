@@ -140,7 +140,16 @@ log(n, base = 2)
 ```
 
 
-##Basic math and summary statistics on vectors
+
+####Basic math and summary statistics on data frames
+```{r}
+#can use this to combine columns of a data frame too!
+hornlength_twice <- c(lizard$squamosalHornLength, 
+                      lizard$squamosalHornLength)
+```
+
+
+##Basic math and summary statistics on data frames
 `R` thinks of columns of a data frame as a vector, so rules for vectors usually apply to columns of a data frame.   
 ```{r}
 #if following, don't write head!
@@ -234,6 +243,9 @@ legend("topleft", c("Dead", "Alive"),
 `R` also has some incredible graphics utilities
 ```{r, eval=FALSE}
 #separate data by dead or alive
+
+#**don't do this with the height data!**
+
 dead <- lizard[lizard$Survival == "killed", ]
 alive <- lizard[lizard$Survival != "killed", ]
 
