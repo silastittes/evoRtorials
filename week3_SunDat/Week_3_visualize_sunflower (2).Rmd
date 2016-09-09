@@ -1,0 +1,246 @@
+---
+title: "Week 3 -- Visualize Sunflower Data"
+author: "YOUR NAME HERE"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  pdf_document:
+    fig_caption: yes
+---
+
+Quantifying and visualizing potential fitness
+=============================================
+
+Last week each individual in class collected data on the geographic location, 
+size (diameter at a height of 12''), and estimated number of seeds for individual 
+sunflower plants. Stem diameter is a measure of plant size. The estimated number 
+of seeds per individual is a measure of the potential fitness of a plant. 
+
+This week your job is to construct a data set that combines all the data from 
+all individuals (in EXCEL) and uses the data to visualize the variation 
+in a population. 
+
+The compiled data from each lab section are available on D2L. 
+
+Goal summary
+-----------
+
+\begin{center}
+    \begin{tabular}{ | p{5.3cm} | p{5.3cm} | p{5.3cm} |}
+    \hline
+    \bf{What you should be able to do} & \bf{How it will be achieved } & 
+    \bf{Questions to answer} \\
+    \hline
+    Assemble a large data set without error & 
+    Combine several small spreadsheet into one large spreadsheet using EXCEL &
+    \phantom{text} \\
+    \hline
+    Show the geographic distribution of the potential fitness of individuals &
+    Make a map of the plants with circle size proportional to log(\# seeds) 
+    using R &
+    Is there any pattern to the geographic distribution of variation? 
+    Explain you answer. \\
+    \hline
+    Compare diameter at 12'' with estimated number of seeds for 
+    all plants (bivariate plot) &
+    Construct a script in R &
+    What is the association between the diameter of the stems and the 
+    estimated number of seeds? \\
+    \hline
+    Compare two histograms for number of seeds per plant: one the 
+    untransformed data and one with the data log-transformed &
+    Construct a script in R &
+    What is different about the two ways of summarizing the data? \\
+    \hline
+    Use the mean number of seeds per plant as an estimate of the intrinsic rate 
+    of increase and, assuming the number of plants observed this year estimates
+    population size, estimate the population size next year 
+    (assume all seeds survive) &
+    Construct a script in R &
+    What is the expected number of plants next year if all seeds survive? \\
+    \hline
+    Assume that population size next year is the same as this year and 
+    calculate the proportion of the total estimated reproductive effort of the 
+    population that will ultimately die (fail to germinate and grow) &
+    Construct a script in R & 
+    Does the estimate of the fraction of seeds that will probably perish 
+    indicate that there is a struggle for existence? Why or why not? \\
+    \hline
+    Use one of the graphs you made a make a claim based on the evidence 
+    in the graph &
+    Practice scientific thinking &
+    \phantom{text} \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+`R` Code
+========
+
+
+
+Question 1
+----------
+Use the following code block to load the full sunflower data set and *answer the 
+question directly below the code block.*
+NOTE: You *CANNOT* load the file using `file.choose()` function. Your document
+will not knit if you try. Instead uou *must* save this file in the same place 
+as the data set, or use `setwd()` to direct `R` to the location of the 
+data file.
+
+```{r} 
+#load in the sunflower data
+flowers <- read.csv("all_sunflowerv2.csv")
+
+#look at the structure of the data file
+str(flowers)
+```
+
+
+
+Question 2
+----------
+Use the following code block to show the geographic distribution of the 
+potential fitness of individuals by making a map of the plants with 
+circle size proportional to log(\# seeds). 
+*Hint:* you'll need to add cex=<value> in your call to `plot()` 
+
+`r #edit the text in quotes below to change your plot caption`
+`r captext1 <- "Geographic distribution of sunflowers with point size scaled to the log10 of the number of flowers"`
+```{r, fig.align='center', fig.cap=captext1}
+#plot the data in a space defined by latitude and longitude and make point size proportional to the log10 of number of flower heads
+plot(flowers$longitude, flowers$latitude, cex=1, ylim=c(39.5,40.1), xlim=c(-105.3,-105.1), ylab="Latitude", xlab="Longtitude")
+
+```
+Is there any pattern to the geographic distribution of variation? 
+Explain you answer.
+
+*Your answer here -- keep the asterisks*
+
+
+
+Question 3
+----------
+Use the following code block to compare diameter at 12'' with 
+estimated number of seeds for all plants (bivariate plot) 
+
+`r #edit the text in quotes below to change your plot caption`
+`r captext2 <- "YOUR PLOT CAPTION HERE"`
+
+```{r, fig.align='center', fig.cap=captext2}
+#your code here
+
+
+```
+
+What is the association between the diameter of the stems and the 
+estimated number of seeds?
+
+*Your answer here -- keep the asterisks*
+
+
+
+Question 4
+----------
+Compare two histograms for number of seeds per plant: one the 
+untransformed data and one with the data log-transformed &
+
+`r #edit the text in quotes below to change the caption for the first histogram`
+`r captext3 <- "YOUR PLOT CAPTION HERE"`
+
+`r #edit the below to change the caption for the second histogram`
+`r captext4 <- "YOUR SECOND PLOT CAPTION HERE"`
+
+```{r, fig.align='center', fig.cap=c(captext3, captext4)}
+#your code here
+
+
+```
+
+What is different about the two ways of summarizing the data?
+
+*Your answer here -- keep the asterisks*
+
+
+
+Question 5
+----------
+Use the mean number of seeds per plant as an estimate of the intrinsic rate 
+of increase and, assuming the number of plants observed this year estimates
+population size, estimate the population size next year 
+(assume all seeds survive) 
+```{r}
+#your code here
+
+
+```
+
+What is the expected number of plants next year if all seeds survive?
+
+*Your answer here -- keep the asterisks*
+
+
+
+Question 6
+----------
+Assume that population size next year is the same as this year and 
+calculate the proportion of the total estimated reproductive effort of the 
+population that will ultimately die (fail to germinate and grow)
+```{r}
+#your code here
+
+
+```
+
+Does the estimate of the fraction of seeds that will probably perish 
+indicate that there is a struggle for existence? Why or why not?
+
+
+
+Question 7
+----------
+Use one of the graphs you made a make a claim based on the evidence 
+in the graph. Make sure to mention which figure you are discussing.
+
+*Your answer here -- keep the asterisks*
+
+
+
+Finally, answer the following questions:
+
+Discussion Question 1. What are examples of environmental effects that you think affect the sunflower traits measured? 
+
+*Your answer here -- keep the asterisks*
+
+Discussion Question 2. Do you think the differences among individuals are due mostly to genetic or environmental effects? Why or why not? 
+
+*Your answer here -- keep the asterisks*
+
+Discussion Question 3. There is clear evidence from your data that some individuals are more fit (have greater potential reproductive success) than other individuals. To what extent do you think the observed differences are due to chance? Justify your answer. 
+
+*Your answer here -- keep the asterisks*
+
+
+Checklist
+=========
+
+$\square$ Assembled data set (1 pt)
+
+$\square$ Visualizations of size and number of seeds per plant (1 pt)
+
+$\square$ Visualization of geographic distribution of number of seeds per plant (1 pt)
+
+$\square$ Bivariate plot of height and number of seeds (1 pt)
+
+$\square$ Pair of histograms showing untransformed and log-transformed data (1 pt)
+
+$\square$ Calculation of Nt+1 (1 pt)
+
+$\square$ Calculation of proportion of seeds that do not make it if Nt+1 = Nt (1 pt)
+
+$\square$ Answers to 9 questions (9 pts)
+
+$\square$ Make a claim and support claim with evidence (4 pts)
+
+
+20 points total
